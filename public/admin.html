@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Админ-панель — Хаяо Миядзаки</title>
+    <link rel="stylesheet" href="./styles/base.css" />
+    <link rel="stylesheet" href="./styles/admin.css" />
+    <script>
+      if (localStorage.getItem('theme') === 'dark') {
+        document.documentElement.classList.add('dark-mode');
+      }
+    </script>
+  </head>
+  <body>
+    <nav class="top-nav light-mode">
+      <div class="top-nav__inner">
+        <a class="top-nav__brand" href="./index.html">Хаяо Миядзаки</a>
+        <ul class="top-nav__menu">
+          <li><a class="top-nav__link" href="./index.html">Фильмы</a></li>
+          <li><a class="top-nav__link" href="./timeline.html">Таймлайн</a></li>
+          <li>
+            <button class="theme-toggle" id="theme-toggle" title="Сменить тему">
+              <span class="toggle-icon sun-icon">☀️</span>
+              <span class="toggle-icon moon-icon">🌙</span>
+            </button>
+          </li>
+          <li id="nav-auth"></li>
+        </ul>
+      </div>
+    </nav>
+
+    <main class="admin-page">
+      <div class="admin-tabs">
+        <button class="admin-tab active" data-section="works">Фильмы</button>
+        <button class="admin-tab" data-section="persons">Персоны</button>
+        <button class="admin-tab" data-section="characters">Персонажи</button>
+        <button class="admin-tab" data-section="genres">Жанры</button>
+        <button class="admin-tab" data-section="awards">Награды</button>
+      </div>
+
+      <div class="admin-content">
+        <!-- Секция фильмов -->
+        <section id="section-works" class="admin-section">
+          <div class="admin-header">
+            <h1>Фильмы</h1>
+            <button class="btn btn-primary" id="add-work-btn">+ Добавить фильм</button>
+          </div>
+          <div class="admin-search">
+            <input type="text" id="search-works" class="search-input" placeholder="🔍 Поиск по названию...">
+          </div>
+          <div id="works-list" class="admin-list"></div>
+        </section>
+
+        <!-- Секция персон -->
+        <section id="section-persons" class="admin-section" hidden>
+          <div class="admin-header">
+            <h1>Персоны</h1>
+            <button class="btn btn-primary" id="add-person-btn">+ Добавить персону</button>
+          </div>
+          <div class="admin-search">
+            <input type="text" id="search-persons" class="search-input" placeholder="🔍 Поиск по имени...">
+          </div>
+          <div id="persons-list" class="admin-list"></div>
+        </section>
+
+        <!-- Секция персонажей -->
+        <section id="section-characters" class="admin-section" hidden>
+          <div class="admin-header">
+            <h1>Персонажи</h1>
+            <button class="btn btn-primary" id="add-character-btn">+ Добавить персонажа</button>
+          </div>
+          <div class="admin-search">
+            <input type="text" id="search-characters" class="search-input" placeholder="🔍 Поиск по имени...">
+          </div>
+          <div id="characters-list" class="admin-list"></div>
+        </section>
+
+        <!-- Секция жанров -->
+        <section id="section-genres" class="admin-section" hidden>
+          <div class="admin-header">
+            <h1>Жанры</h1>
+            <button class="btn btn-primary" id="add-genre-btn">+ Добавить жанр</button>
+          </div>
+          <div class="admin-search">
+            <input type="text" id="search-genres" class="search-input" placeholder="🔍 Поиск по названию...">
+          </div>
+          <div id="genres-list" class="admin-list"></div>
+        </section>
+
+        <!-- Секция наград -->
+        <section id="section-awards" class="admin-section" hidden>
+          <div class="admin-header">
+            <h1>Награды</h1>
+            <button class="btn btn-primary" id="add-award-btn">+ Добавить награду</button>
+          </div>
+          <div class="admin-search">
+            <input type="text" id="search-awards" class="search-input" placeholder="🔍 Поиск по названию...">
+          </div>
+          <div id="awards-list" class="admin-list"></div>
+        </section>
+      </div>
+
+      <!-- Модальное окно для редактирования -->
+      <div id="edit-modal" class="modal">
+        <div class="modal-dialog">
+          <div class="modal-header">
+            <h2 id="modal-title">Редактирование</h2>
+            <button class="modal-close" id="modal-close">&times;</button>
+          </div>
+          <form id="edit-form" class="modal-body">
+            <div id="form-fields"></div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" id="modal-cancel">Отмена</button>
+              <button type="submit" class="btn btn-primary">Сохранить</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </main>
+
+    <script type="module" src="./scripts/admin.js"></script>
+  </body>
+</html>

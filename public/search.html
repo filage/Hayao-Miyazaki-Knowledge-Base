@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Поиск — Творчество Хаяо Миядзаки</title>
+    <link rel="stylesheet" href="./styles/base.css" />
+    <link rel="stylesheet" href="./styles/listing.css" />
+  </head>
+  <body>
+    <nav class="top-nav">
+      <div class="top-nav__inner">
+        <a class="top-nav__brand" href="./index.html">Miyazaki Knowledge Base</a>
+        <ul class="top-nav__menu">
+          <li><a class="top-nav__link" href="./index.html">Главная</a></li>
+          <li><a class="top-nav__link" href="./works.html">Произведения</a></li>
+          <li><a class="top-nav__link" href="./persons.html">Персоны</a></li>
+          <li><a class="top-nav__link" href="./characters.html">Персонажи</a></li>
+          <li><a class="top-nav__link" href="./themes.html">Темы</a></li>
+          <li><a class="top-nav__link" href="./awards.html">Награды</a></li>
+          <li><a class="top-nav__link top-nav__link--active" href="./search.html">Поиск</a></li>
+        </ul>
+      </div>
+    </nav>
+    <header class="hero hero--compact">
+      <div class="hero__content">
+        <h1>Поиск по базе знаний</h1>
+        <p>Найдите произведения, персон и персонажей по ключевым словам и темам.</p>
+        <form id="search-page-form" class="filters" style="gap: 12px; margin-top: 12px;">
+          <input type="search" id="search-page-query" placeholder="Название, описание, участники" />
+          <button type="submit">Искать</button>
+        </form>
+      </div>
+    </header>
+
+    <main class="page-container">
+      <section class="page-header">
+        <div class="filters" id="search-secondary">
+          <label>
+            Порог похожести
+            <input type="number" id="search-min-score" placeholder="0.3" step="0.05" min="0" max="1" />
+          </label>
+        </div>
+      </section>
+
+      <section class="section" id="search-works">
+        <div class="section__header">
+          <h2>Произведения</h2>
+          <span class="section__link" id="works-count"></span>
+        </div>
+        <div class="card-grid" id="search-works-grid"></div>
+        <p class="empty-state" id="search-works-empty" hidden>По произведениям ничего не найдено.</p>
+      </section>
+
+      <section class="section" id="search-persons">
+        <div class="section__header">
+          <h2>Персоны</h2>
+          <span class="section__link" id="persons-count"></span>
+        </div>
+        <div class="list-grid" id="search-persons-grid"></div>
+        <p class="empty-state" id="search-persons-empty" hidden>Персоны не найдены.</p>
+      </section>
+
+      <section class="section" id="search-characters">
+        <div class="section__header">
+          <h2>Персонажи</h2>
+          <span class="section__link" id="characters-count"></span>
+        </div>
+        <div class="list-grid" id="search-characters-grid"></div>
+        <p class="empty-state" id="search-characters-empty" hidden>Персонажи не найдены.</p>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <p>© 2025 База знаний по творчеству Хаяо Миядзаки</p>
+    </footer>
+
+    <script type="module" src="./scripts/search.js"></script>
+  </body>
+</html>

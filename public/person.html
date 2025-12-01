@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Персона — Творчество Хаяо Миядзаки</title>
+    <link rel="stylesheet" href="./styles/base.css" />
+    <link rel="stylesheet" href="./styles/detail.css" />
+  </head>
+  <body>
+    <nav class="top-nav">
+      <div class="top-nav__inner">
+        <a class="top-nav__brand" href="./index.html">Miyazaki Knowledge Base</a>
+        <ul class="top-nav__menu">
+          <li><a class="top-nav__link" href="./index.html">Главная</a></li>
+          <li><a class="top-nav__link" href="./works.html">Произведения</a></li>
+          <li><a class="top-nav__link top-nav__link--active" href="./persons.html">Персоны</a></li>
+          <li><a class="top-nav__link" href="./characters.html">Персонажи</a></li>
+          <li><a class="top-nav__link" href="./themes.html">Темы</a></li>
+          <li><a class="top-nav__link" href="./awards.html">Награды</a></li>
+          <li><a class="top-nav__link" href="./search.html">Поиск</a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <main class="detail">
+      <section class="detail__header">
+        <div>
+          <p class="detail__back"><a href="./persons.html">← Назад к списку</a></p>
+          <h1 id="person-name" class="detail__title">Загрузка…</h1>
+          <p id="person-meta" class="detail__meta"></p>
+          <div class="detail__actions" id="person-links"></div>
+        </div>
+        <img id="person-photo" class="detail__poster" alt="Фото персоны" />
+      </section>
+
+      <section class="detail__content">
+        <div class="detail__synopsis">
+          <h2>Биография</h2>
+          <p id="person-bio">Загрузка…</p>
+          <dl class="detail__facts">
+            <div>
+              <dt>Страна</dt>
+              <dd id="person-country">—</dd>
+            </div>
+            <div>
+              <dt>Дата рождения</dt>
+              <dd id="person-birth">—</dd>
+            </div>
+            <div>
+              <dt>Роли</dt>
+              <dd id="person-roles">—</dd>
+            </div>
+          </dl>
+        </div>
+        <aside class="detail__themes">
+          <h2>Основные роли</h2>
+          <div id="person-roles-tags" class="pill-grid"></div>
+        </aside>
+      </section>
+
+      <section class="detail__section">
+        <h2>Работы</h2>
+        <div id="person-works" class="detail__list"></div>
+      </section>
+
+      <section class="detail__section">
+        <h2>Награды</h2>
+        <div id="person-awards" class="detail__list"></div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <p>© 2025 База знаний по творчеству Хаяо Миядзаки</p>
+    </footer>
+
+    <script type="module" src="./scripts/person.js"></script>
+  </body>
+</html>

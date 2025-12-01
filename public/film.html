@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Фильм — Хаяо Миядзаки</title>
+    <link rel="stylesheet" href="./styles/base.css" />
+    <link rel="stylesheet" href="./styles/film.css" />
+    <script>
+      if (localStorage.getItem('theme') === 'dark') {
+        document.documentElement.classList.add('dark-mode');
+      }
+    </script>
+  </head>
+  <body>
+    <nav class="top-nav light-mode">
+      <div class="top-nav__inner">
+        <a class="top-nav__brand" href="./index.html">Хаяо Миядзаки</a>
+        <ul class="top-nav__menu">
+          <li><a class="top-nav__link" href="./index.html">Фильмы</a></li>
+          <li><a class="top-nav__link" href="./timeline.html">Таймлайн</a></li>
+          <li>
+            <button class="theme-toggle" id="theme-toggle" title="Сменить тему">
+              <span class="toggle-icon sun-icon">☀️</span>
+              <span class="toggle-icon moon-icon">🌙</span>
+            </button>
+          </li>
+          <li id="nav-auth"></li>
+        </ul>
+      </div>
+    </nav>
+    <script>
+      // Обновление навигации
+      (function() {
+        const navAuth = document.getElementById('nav-auth');
+        const token = localStorage.getItem('token');
+        const user = JSON.parse(localStorage.getItem('user') || '{}');
+        
+        if (token && user.username) {
+          navAuth.innerHTML = '<span class="nav-user">' +
+            '<a href="./profile.html" class="nav-user-link">👤 ' + (user.displayName || user.username) + '</a>' +
+            (user.role === 'admin' ? ' <a href="./admin.html" class="nav-admin-btn">Панель управления</a>' : '') +
+            ' <a href="#" class="nav-logout-btn" onclick="logout()">Выйти</a>' +
+            '</span>';
+        } else {
+          navAuth.innerHTML = '<a href="./login.html" class="top-nav__link">Войти</a>';
+        }
+        
+        window.logout = async function() {
+          await fetch('/api/auth/logout', { method: 'POST', headers: { 'Authorization': 'Bearer ' + token } });
+          localStorage.removeItem('token');
+          localStorage.removeItem('user');
+          location.reload();
+        };
+      })();
+    </script>
+
+    <main class="film-page">
+      <div class="film-hero" id="film-hero">
+      <div class="film-container">
+        <!-- Постер слева -->
+        <div class="film-poster">
+          <img id="film-poster-img" src="" alt="Постер фильма" />
+          <div class="film-trailer" id="film-trailer-section" hidden>
+            <button id="show-trailer-btn" class="btn-trailer">Трейлер</button>
+          </div>
+        </div>
+
+        <!-- Информация о фильме справа -->
+        <div class="film-info">
+          <h1 id="film-title" class="film-title">Загрузка...</h1>
+          <p id="film-original-title" class="film-original-title"></p>
+          
+          <div class="film-meta">
+            <span id="film-rating" class="film-rating" hidden>
+              <span class="rating-value">0.0</span>
+            </span>
+            <span id="film-age-rating" class="film-age-pill" hidden></span>
+          </div>
+
+          <div id="film-genres" class="film-genres"></div>
+
+          <p id="film-synopsis" class="film-synopsis">Загрузка...</p>
+
+          <div class="film-actions" id="film-actions" hidden>
+            <button class="btn btn-watchlist" id="btn-watchlist" data-status="">
+              <span>📋 В планах</span>
+            </button>
+            <button class="btn btn-watched" id="btn-watched" data-status="">
+              <span>✓ Просмотрено</span>
+            </button>
+            <button class="btn btn-favorite" id="btn-favorite" data-status="">
+              <span>❤ Избранное</span>
+            </button>
+          </div>
+          <p id="auth-hint" class="auth-hint"><a href="./login.html">Войдите</a>, чтобы добавлять фильмы в списки</p>
+
+          <!-- Детали о фильме -->
+          <section class="film-details">
+            <h2>О фильме</h2>
+            <dl class="details-list">
+              <div class="details-row">
+                <dt>Год производства</dt>
+                <dd id="film-year">—</dd>
+              </div>
+              <div class="details-row">
+                <dt>Страна</dt>
+                <dd id="film-country">—</dd>
+              </div>
+              <div class="details-row">
+                <dt>Режиссер</dt>
+                <dd id="film-director">—</dd>
+              </div>
+              <div class="details-row">
+                <dt>Сценарий</dt>
+                <dd id="film-screenwriter">—</dd>
+              </div>
+              <div class="details-row">
+                <dt>Продюсер</dt>
+                <dd id="film-producer">—</dd>
+              </div>
+              <div class="details-row">
+                <dt>Композитор</dt>
+                <dd id="film-composer">—</dd>
+              </div>
+              <div class="details-row">
+                <dt>Художник</dt>
+                <dd id="film-artist">—</dd>
+              </div>
+              <div class="details-row">
+                <dt>Оператор</dt>
+                <dd id="film-cinematographer">—</dd>
+              </div>
+              <div class="details-row">
+                <dt>Монтаж</dt>
+                <dd id="film-editor">—</dd>
+              </div>
+              <div class="details-row">
+                <dt>Бюджет</dt>
+                <dd id="film-budget">—</dd>
+              </div>
+              <div class="details-row">
+                <dt>Сборы в мире</dt>
+                <dd id="film-box-office">—</dd>
+              </div>
+              <div class="details-row">
+                <dt>Премьера в мире</dt>
+                <dd id="film-premiere">—</dd>
+              </div>
+              <div class="details-row">
+                <dt>Возраст</dt>
+                <dd id="film-age">—</dd>
+              </div>
+              <div class="details-row">
+                <dt>Время</dt>
+                <dd id="film-runtime">—</dd>
+              </div>
+            </dl>
+          </section>
+
+          <!-- Персонажи -->
+          <section class="film-section">
+            <h2>Персонажи</h2>
+            <div id="film-characters" class="characters-grid"></div>
+          </section>
+
+          <!-- Награды -->
+          <section class="film-section" id="film-awards-section" hidden>
+            <h2>Награды</h2>
+            <div id="film-awards" class="awards-list"></div>
+          </section>
+
+          <!-- Комментарии -->
+          <section class="film-section comments-section">
+            <h2>Комментарии <span id="comments-count"></span></h2>
+            
+            <div id="comment-form-container" class="comment-form-container" hidden>
+              <textarea id="comment-input" class="comment-input" placeholder="Напишите ваш комментарий..." maxlength="2000"></textarea>
+              <div class="comment-form-actions">
+                <span id="comment-chars">0 / 2000</span>
+                <button id="submit-comment" class="btn btn-primary">Отправить</button>
+              </div>
+            </div>
+            
+            <div id="login-prompt" class="login-prompt" hidden>
+              <p>Чтобы оставить комментарий, <a href="./login.html">войдите</a> или <a href="./register.html">зарегистрируйтесь</a></p>
+            </div>
+            
+            <div id="comments-list" class="comments-list"></div>
+            <div id="comments-empty" class="comments-empty" hidden>
+              <p>Пока нет комментариев. Будьте первым!</p>
+            </div>
+          </section>
+        </div>
+      </div>
+      </div>
+
+      <!-- Трейлер модальное окно -->
+      <div id="trailer-modal" class="modal">
+        <div class="modal-content">
+          <button class="modal-close" id="close-trailer">&times;</button>
+          <iframe id="trailer-iframe" src="" frameborder="0" allowfullscreen></iframe>
+        </div>
+      </div>
+    </main>
+
+    <footer class="footer">
+      <p>© 2025 filage</p>
+      <a href="https://github.com/filage" target="_blank" class="footer-github">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+        GitHub
+      </a>
+    </footer>
+
+    <script type="module" src="./scripts/film.js"></script>
+  </body>
+</html>

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Таймлайн — Хаяо Миядзаки</title>
+    <link rel="stylesheet" href="./styles/base.css" />
+    <link rel="stylesheet" href="./styles/timeline.css" />
+    <script>
+      (function() {
+        if (localStorage.getItem('theme') === 'dark') {
+          document.documentElement.classList.add('dark-mode');
+        }
+      })();
+    </script>
+  </head>
+  <body>
+    <nav class="top-nav light-mode" id="top-nav">
+      <div class="top-nav__inner">
+        <a class="top-nav__brand" href="./index.html">Хаяо Миядзаки</a>
+        <ul class="top-nav__menu">
+          <li><a class="top-nav__link" href="./index.html">Фильмы</a></li>
+          <li><a class="top-nav__link top-nav__link--active" href="./timeline.html">Таймлайн</a></li>
+          <li>
+            <button class="theme-toggle" id="theme-toggle" title="Сменить тему">
+              <span class="toggle-icon sun-icon">☀️</span>
+              <span class="toggle-icon moon-icon">🌙</span>
+            </button>
+          </li>
+          <li id="nav-auth"></li>
+        </ul>
+      </div>
+    </nav>
+
+    <main class="timeline-page">
+      <header class="timeline-header">
+        <h1>Путешествие сквозь время</h1>
+        <p>Хронология творчества студии Ghibli и Хаяо Миядзаки</p>
+      </header>
+
+      <div class="timeline-container">
+        <div class="timeline-line"></div>
+        <div id="timeline-items" class="timeline-items">
+          <!-- Загрузка... -->
+        </div>
+      </div>
+
+      <div class="timeline-stats" id="timeline-stats">
+        <div class="stat-card">
+          <span class="stat-number" id="stat-years">0</span>
+          <span class="stat-label">лет творчества</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-number" id="stat-films">0</span>
+          <span class="stat-label">фильмов</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-number" id="stat-awards">0</span>
+          <span class="stat-label">наград</span>
+        </div>
+      </div>
+    </main>
+
+    <footer class="footer">
+      <p>© 2025 Мир Миядзаки</p>
+    </footer>
+
+    <script type="module" src="./scripts/timeline.js"></script>
+  </body>
+</html>
